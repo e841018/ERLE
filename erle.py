@@ -62,7 +62,7 @@ def enc128(num):
     '''
     encode num (up to 32767) into 1 or 2 bytes
     '''
-    return bytes([(num & 0x7f) | 0x80, num >> 7]) if num >= 128 else bytes([num])
+    return bytearray([(num & 0x7f) | 0x80, num >> 7]) if num >= 128 else bytearray([num])
 
 
 def run_len(row, idx):
@@ -130,7 +130,7 @@ def encode(images):
     encode image with the format described in section 2.4.3.2.1
     '''
     # header
-    encoded = header_template.copy()
+    encoded = bytearray(header_template)
 
     # uint32 array, shape = (1080, 1920)
     image = merge(images)
